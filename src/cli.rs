@@ -54,7 +54,7 @@ pub static PDATA: LazyLock<ProgramData> = LazyLock::new(|| ProgramData {
 });
 impl Display for ProgramData {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let ProgramData { cargo, cli, .. } = self;
+        let ProgramData { cargo, .. } = self;
         let local_ip = local_ip().unwrap().to_canonical();
         let port = self.cli.addr.port();
         write!(

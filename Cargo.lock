@@ -334,6 +334,7 @@ dependencies = [
  "axum",
  "axum-client-ip",
  "clap",
+ "color-print",
  "local-ip-address",
  "strace",
  "thiserror 2.0.12",

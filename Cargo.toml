@@ -12,6 +12,7 @@ local-ip-address = "0.6.3"
 thiserror = "2.0.12"
 tokio = { version = "1.44.1", features = ["macros", "rt-multi-thread"] }
 strace = { git = "https://github.com/aramrw/strace.git", branch = "0.0.2" }
+color-print = "0.3.7"
 
 [profile.dev]
 opt-level = 2

@@ -29,7 +29,7 @@ impl Display for CargoInfo {
         let exe = exe.display();
         write!(
             f,
-            "-* filetransfer v{version} *-\n-----------------------------\nrepo='{repo}'\nexe='{exe}'\npid={pid}\n",
+            "\n-* filetransfer v{version} *-\n-----------------------------\nrepo='{repo}'\nexe='{exe}'\npid={pid}\n",
         )
     }
 }

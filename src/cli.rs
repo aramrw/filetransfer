@@ -2,6 +2,7 @@ use clap::{command, Parser};
 use core::net::{Ipv4Addr, SocketAddr, SocketAddrV4};
 use local_ip_address::local_ip;
 use std::{env, fmt::Display, path::PathBuf, sync::LazyLock};
+use strace::color_print::cwrite;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
@@ -27,9 +28,9 @@ impl Display for CargoInfo {
             ..
         } = self;
         let exe = exe.display();
-        write!(
+        cwrite!(
             f,
-            "\n-* filetransfer v{version} *-\n-----------------------------\nrepo='{repo}'\nexe='{exe}'\npid={pid}\n",
+            "\n-* filetransfer <b>v{version}</b> *-\n-----------------------------\n<u><b>{repo}</b></u>\n{exe}\n<i>PID:{pid}</i>\n",
         )
     }
 }
@@ -57,9 +58,9 @@ impl Display for ProgramData {
         let ProgramData { cargo, .. } = self;
         let local_ip = local_ip().unwrap().to_canonical();
         let port = self.cli.addr.port();
-        write!(
+        cwrite!(
             f,
-            "{cargo}-----------------------------\nhttp://{local_ip}:{port}\n-----------------------------"
+            "{cargo}-----------------------------\n<b><u>http://{local_ip}:{port}</u><b>\n-----------------------------"
         )
     }
 }

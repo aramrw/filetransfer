@@ -12,6 +12,7 @@ use std::{
     //net::{SocketAddr, SocketAddrV4},
     sync::LazyLock,
 };
+use strace::color_print::cprintln;
 
 use crate::{
     cli::PDATA,
@@ -19,7 +20,18 @@ use crate::{
     upload::{html_upload, upload_file},
 };
 
-async fn check_client_ip(req: Request, next: Next) -> Result<Response, StatusCode> {
+async fn check_client_ip(
+    insecure_ip: InsecureClientIp,
+    secure_ip: SecureClientIp,
+    req: Request,
+    next: Next,
+) -> Result<Response, StatusCode> {
+    cprintln!(
+        "<g>[</g>+<g>]</g> \\\\(<r>{:?}</r>\\\\) % <b>{:?}</b> {:?}",
+        insecure_ip.0,
+        secure_ip.0,
+        req.method(),
+    );
     let ip = req
         .extensions()
         .get::<SecureClientIp>()
@@ -37,16 +49,15 @@ async fn check_client_ip(req: Request, next: Next) -> Result<Response, StatusCod
 pub(crate) static APP: LazyLock<Router> = LazyLock::new(|| {
     Router::new()
         .layer(middleware::from_fn(check_client_ip))
-        .route("/", get(root))
         .layer(SecureClientIpSource::ConnectInfo.into_extension())
+        .route("/", get(root))
         .route("/upload", get(html_upload).post(upload_file))
         .layer(DefaultBodyLimit::max(1_073_741_824))
         .route("/download", get(html_dl))
         .route("/download/file/{filename}", get(download_file))
 });
 
-async fn root(insecure_ip: InsecureClientIp, secure_ip: SecureClientIp) -> Html<&'static str> {
-    println!("[+] conn: {insecure_ip:?} | {secure_ip:?}");
+async fn root() -> Html<&'static str> {
     Html(
         r#"
         <!DOCTYPE html>

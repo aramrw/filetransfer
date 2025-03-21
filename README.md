@@ -6,9 +6,9 @@
 
 #### Upload a file
 ```pwsh
-$ curl -X POST -F "file=@./path/to/file.txt" http://<YOUR_IP>:3000/upload
+curl -X POST -F "file=@./path/to/file.txt" http://<YOUR_IP>:3000/upload
 ```
 #### Download a file
 ```pwsh
-$ curl -O http://<YOUR_IP>:3000/download/file/<FILE_NAME>
+curl -O http://<YOUR_IP>:3000/download/file/<FILE_NAME>
 ```

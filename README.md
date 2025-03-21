@@ -1,3 +1,5 @@
+<img src="https://github.com/user-attachments/assets/5a4d57a0-1fbc-4bb2-9250-f7a2ce3dac33" width="400px" />
+
 ### Browser Usage
 1. Run `exe`
 2. Go to `http://<YOUR_IP>::<PORT>/` on second device 👍

@@ -3,8 +3,6 @@
 2. Go to `http://<YOUR_IP>::<PORT>/` on second device 👍
 
 ### Cli Example
-**_Win_: `ipconfig`
-_Linux_: `ip -4 addr`**
 
 #### Upload a file
 ```pwsh

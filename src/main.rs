@@ -3,21 +3,15 @@ mod dl;
 mod router;
 mod upload;
 use cli::PDATA;
-use local_ip_address::local_ip;
 use router::APP;
-use std::{
-    fs,
-    net::{Ipv4Addr, SocketAddr},
-    path::Path,
-};
+use std::{fs, net::SocketAddr, path::Path};
 
 #[tokio::main]
 async fn main() {
-    println!("{}", *PDATA);
+    strace::dbug!(*PDATA, "serving");
     if !Path::new("./upload").exists() {
         fs::create_dir_all("./upload").expect("Failed to create upload directory");
     }
-    //let app = Router::new().route("/", get(|| async { "Hello, World!" }));
     let tcpl = tokio::net::TcpListener::bind(PDATA.cli.addr).await.unwrap();
     axum::serve(
         tcpl,

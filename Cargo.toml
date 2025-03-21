@@ -2,10 +2,13 @@
 name = "ftran"
 version = "0.0.1"
 edition = "2021"
+repository = "https://github.com/aramrw/filetransfer"
 
 [dependencies]
 axum = { version = "0.8.1", features = ["multipart"] }
 axum-client-ip = "0.7.0"
+clap = { version = "4.5.32", features = ["derive"] }
+local-ip-address = "0.6.3"
 thiserror = "2.0.12"
 tokio = { version = "1.44.1", features = ["macros", "rt-multi-thread"] }
 

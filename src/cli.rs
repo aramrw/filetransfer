@@ -60,13 +60,13 @@ pub static PDATA: LazyLock<ProgramData> = LazyLock::new(|| ProgramData {
 impl Display for ProgramData {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let ProgramData { cargo, .. } = self;
-        
+
         // Handle potential error when fetching local IP
         let local_ip_str = match local_ip() {
-            Ok(ip) => ip.to_string(), // Using to_string for simpler display, canonical is fine too
-            Err(_) => "[Could not determine local IP]".to_string(),
+            Ok(ip) => ip.to_string(),
+            Err(e) => panic!("FATAL: Could not determine local IP.\nREASON: {e}\nHELP: Are you connected to wifi?"),
         };
-        
+
         let port = self.cli.addr.port();
         let server_addr_ip_str = if self.cli.addr.ip().is_unspecified() {
             // If listening on 0.0.0.0 or ::, use the determined local_ip_str for display,
